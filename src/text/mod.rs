@@ -1,6 +1,7 @@
+use std::convert::From;
 use std::fmt;
 use std::ops::Deref;
-use std::convert::From;
+use std::path::{Path, PathBuf};
 
 #[derive(Debug, PartialEq)]
 pub struct Text {
@@ -41,6 +42,18 @@ impl<'a> From<&'a str> for Text {
 impl From<String> for Text {
     fn from(s: String) -> Self {
         Text { text: s }
+    }
+}
+
+impl<'a> From<&'a Path> for Text {
+    fn from(s: &'a Path) -> Self {
+        Text { text: s.to_string_lossy().into_owned() }
+    }
+}
+
+impl From<PathBuf> for Text {
+    fn from(s: PathBuf) -> Self {
+        Text { text: s.to_string_lossy().into_owned() }
     }
 }
 
