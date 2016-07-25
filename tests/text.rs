@@ -1,8 +1,8 @@
-extern crate text;
+extern crate easystring;
 
 #[cfg(test)]
 mod tests {
-    use text::Text;
+    use easystring::Text;
 
     // #[test]
     // fn typename_as_constructor() {
