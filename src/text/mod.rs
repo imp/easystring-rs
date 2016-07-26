@@ -72,6 +72,8 @@ impl Deref for Text {
     }
 }
 
+/// PartialEq
+
 impl PartialEq<str> for Text {
     fn eq(&self, other: &str) -> bool {
         *self == Text::from(other)
@@ -114,6 +116,24 @@ impl<'a> PartialEq<&'a Path> for Text {
     }
 }
 
+impl PartialEq<PathBuf> for Text {
+    fn eq(&self, other: &PathBuf) -> bool {
+        match other.to_str() {
+            Some(s) => self.text == s,
+            None => false,
+        }
+    }
+}
+
+impl<'a> PartialEq<PathBuf> for &'a Text {
+    fn eq(&self, other: &PathBuf) -> bool {
+        match other.to_str() {
+            Some(s) => self.text == s,
+            None => false,
+        }
+    }
+}
+
 impl<T> From<T> for Text
     where T: Textable
 {
@@ -122,7 +142,7 @@ impl<T> From<T> for Text
     }
 }
 
-/////
+/// From<Text> for String
 
 impl From<Text> for String {
     fn from(t: Text) -> Self {

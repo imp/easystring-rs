@@ -87,6 +87,13 @@ mod partial_equality_direct {
         let text = Text::from(STRING);
         assert_eq!(text, path);
     }
+
+    #[test]
+    fn pathbuf() {
+        let pathbuf = PathBuf::from(STRING);
+        let text = Text::from(STRING);
+        assert_eq!(text, pathbuf);
+    }
 }
 
 #[cfg(test)]
@@ -114,5 +121,12 @@ mod partial_equality_as_ref {
         let path = Path::new(STRING);
         let text = Text::from(STRING);
         assert_eq!(&text, path);
+    }
+
+    #[test]
+    fn pathbuf() {
+        let pathbuf = PathBuf::from(STRING);
+        let text = Text::from(STRING);
+        assert_eq!(&text, pathbuf);
     }
 }
