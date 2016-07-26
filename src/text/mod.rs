@@ -72,14 +72,6 @@ impl Deref for Text {
     }
 }
 
-// DOES NOT WORK
-// impl<T> PartialEq<T> for Text where T: Textable + Clone {
-//     fn eq(&self, other: &T) -> bool {
-//         let other = Text::from(other.clone());
-//         self.text == other.text
-//     }
-// }
-
 impl PartialEq<str> for Text {
     fn eq(&self, other: &str) -> bool {
         *self == Text::from(other)
@@ -104,16 +96,6 @@ impl<'a> PartialEq<String> for &'a Text {
     }
 }
 
-// impl<'a, T> PartialEq<T> for Text
-//     where Text: From<&'a T>,
-//           T: 'a
-// {
-//     fn eq(&self, other: &T) -> bool {
-//         let other = Text::from(other);
-//         self.text == other.text
-//     }
-// }
-
 impl PartialEq<Path> for Text {
     fn eq(&self, other: &Path) -> bool {
         match other.to_str() {
@@ -132,9 +114,6 @@ impl<'a> PartialEq<&'a Path> for Text {
     }
 }
 
-
-//////////////////////
-
 impl<T> From<T> for Text
     where T: Textable
 {
@@ -143,59 +122,10 @@ impl<T> From<T> for Text
     }
 }
 
-// impl<'a> From<&'a str> for Text {
-//     fn from(s: &'a str) -> Self {
-//         Text { text: s.to_owned() }
-//     }
-// }
+/////
 
-
-// impl<T> From<T> for Text
-//     where T: Into<String>
-// {
-//     default fn from(s: T) -> Self {
-//         Text { text: s.into() }
-//     }
-// }
-
-// impl<T> From<&T> for Text
-//     where String: From<&T>
-// {
-//     fn from(s: &T) -> Self {
-//         Text { text: String::from(s) }
-//     }
-// }
-
-
-// impl<'a, T> From<T> for Text
-//     where String: From<&'a T>,
-//         T: 'a
-// {
-//     fn from(ref s: T) -> Self {
-//         Text { text: String::from(s) }
-//     }
-// }
-
-// impl From<String> for Text {
-//     fn from(s: String) -> Self {
-//         Text { text: s }
-//     }
-// }
-
-// impl<'a> From<&'a Path> for Text {
-//     fn from(s: &'a Path) -> Self {
-//         Text { text: s.to_string_lossy().into_owned() }
-//     }
-// }
-//
-// impl From<PathBuf> for Text {
-//     fn from(s: PathBuf) -> Self {
-//         Text { text: s.to_string_lossy().into_owned() }
-//     }
-// }
-
-// impl From<Text> for String {
-//     fn from(t: Text) -> Self {
-//         t.text
-//     }
-// }
+impl From<Text> for String {
+    fn from(t: Text) -> Self {
+        t.text
+    }
+}
