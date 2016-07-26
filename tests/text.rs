@@ -2,7 +2,7 @@ extern crate easystring;
 
 #[cfg(test)]
 mod length {
-    use easystring::{Text, Textable};
+    use easystring::Text;
 
     #[test]
     fn zero() {
@@ -30,7 +30,7 @@ mod length {
 #[cfg(test)]
 mod from {
     use std::path::{Path, PathBuf};
-    use easystring::{Text, Textable};
+    use easystring::Text;
 
     const STRING: &'static str = "EaSyStRiNg";
     #[test]
@@ -64,7 +64,7 @@ mod from {
 #[cfg(test)]
 mod partial_equality_direct {
     use std::path::{Path, PathBuf};
-    use easystring::{Text, Textable};
+    use easystring::Text;
 
     const STRING: &'static str = "EaSyStRiNg";
 
@@ -92,7 +92,7 @@ mod partial_equality_direct {
 #[cfg(test)]
 mod partial_equality_as_ref {
     use std::path::{Path, PathBuf};
-    use easystring::{Text, Textable};
+    use easystring::Text;
 
     const STRING: &'static str = "EaSyStRiNg";
 
