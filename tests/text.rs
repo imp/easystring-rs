@@ -167,4 +167,14 @@ mod ops {
         let text = t1 + t2;
         assert_eq!(text, "123456");
     }
+
+    #[test]
+    fn add_multi() {
+        let t0 = Text::new();
+        let t1 = String::from("123");
+        let t2 = Path::new("456");
+        let t3 = PathBuf::from("789");
+        let text: Text = t0 + t1 + t2 + t3;
+        assert_eq!(text, "123456789");
+    }
 }
