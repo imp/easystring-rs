@@ -130,3 +130,41 @@ mod partial_equality_as_ref {
         assert_eq!(&text, pathbuf);
     }
 }
+
+#[cfg(test)]
+mod ops {
+    use std::path::{Path, PathBuf};
+    use easystring::Text;
+
+    #[test]
+    fn add_text() {
+        let t1 = Text::from("123");
+        let t2 = Text::from("456");
+        let text = t1 + t2;
+        assert_eq!(text, "123456");
+    }
+
+    #[test]
+    fn add_string() {
+        let t1 = Text::from("123");
+        let t2 = String::from("456");
+        let text = t1 + t2;
+        assert_eq!(text, "123456");
+    }
+
+    #[test]
+    fn add_path() {
+        let t1 = Text::from("123");
+        let t2 = Path::new("456");
+        let text = t1 + t2;
+        assert_eq!(text, "123456");
+    }
+
+    #[test]
+    fn add_pathbuf() {
+        let t1 = Text::from("123");
+        let t2 = PathBuf::from("456");
+        let text = t1 + t2;
+        assert_eq!(text, "123456");
+    }
+}

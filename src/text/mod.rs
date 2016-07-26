@@ -1,6 +1,6 @@
 use std::convert::From;
 use std::fmt;
-use std::ops::Deref;
+use std::ops::{Add, Deref};
 use std::path::{Path, PathBuf};
 
 #[derive(Debug, PartialEq)]
@@ -69,6 +69,22 @@ impl Deref for Text {
     type Target = str;
     fn deref(&self) -> &str {
         &self.text
+    }
+}
+
+/// Add
+
+impl Add for Text{
+    type Output = Text;
+    fn add(self, rhs: Text) -> Self::Output {
+        Text { text: self.text + &rhs.text }
+    }
+}
+
+impl<T> Add<T> for Text where T: Textable {
+    type Output = Text;
+    fn add(self, rhs: T) -> Self::Output {
+        Text { text: self.text + &rhs.to_text() }
     }
 }
 
