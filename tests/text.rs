@@ -14,6 +14,17 @@ mod length {
         let text = Text::from("1234567890");
         assert_eq!(text.len(), 10);
     }
+
+    #[test]
+    fn empty() {
+        assert!(Text::new().is_empty());
+    }
+
+    #[test]
+    fn not_empty() {
+        let text = Text::from("1234567890");
+        assert!(!text.is_empty());
+    }
 }
 
 #[cfg(test)]
