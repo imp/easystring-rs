@@ -178,3 +178,24 @@ mod ops {
         assert_eq!(text, "123456789");
     }
 }
+
+#[cfg(test)]
+mod from_text {
+    use std::path::{Path, PathBuf};
+    use easystring::Text;
+
+    #[test]
+    fn string() {
+        let t1 = String::from(Text::from("123"));
+        let t2 = String::from("123");
+        assert_eq!(t1, t2);
+    }
+
+    #[test]
+    fn path() {
+        let text = Text::from("123");
+        let t1: &Path = (&text).into();
+        let t2 = Path::new("123");
+        assert_eq!(t1, t2);
+    }
+}

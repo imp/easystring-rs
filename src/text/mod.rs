@@ -42,9 +42,6 @@ impl Textable for PathBuf {
     }
 }
 
-
-
-
 impl Text {
     pub fn new() -> Self {
         Text { text: String::new() }
@@ -163,5 +160,11 @@ impl<T> From<T> for Text
 impl From<Text> for String {
     fn from(t: Text) -> Self {
         t.text
+    }
+}
+
+impl<'a> From<&'a Text> for &'a Path {
+    fn from(t: &'a Text) -> Self {
+        Path::new(&t.text)
     }
 }
