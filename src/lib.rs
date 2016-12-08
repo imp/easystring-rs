@@ -1,4 +1,5 @@
-// #![feature(specialization)]
-
+#![feature(specialization)]
+mod content;
 mod text;
-pub use text::*;
+
+pub use text::Text;

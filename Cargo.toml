@@ -4,8 +4,7 @@ version = "0.0.0"
 authors = ["Cyril Plisko <cyril.plisko@mountall.com>"]
 description = "EasyString: friendly string and text wrapper"
 keywords = ["string", "text"]
+documentation = "https://docs.rs/easystring"
 repository = "https://gitlab.com/imp/easystring-rs.git"
 homepage = "https://gitlab.com/imp/easystring-rs"
 license = "MIT/Apache-2.0"
-
-[dependencies]
