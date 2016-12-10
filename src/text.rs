@@ -170,7 +170,7 @@ impl<T: ?Sized + AsRef<str>> PartialEq<T> for Text {
 //         *self == Text::from(other)
 //     }
 // }
-//
+
 // impl<'a> PartialEq<&'a str> for Text {
 //     fn eq(&self, other: &&'a str) -> bool {
 //         self.text == *other
@@ -197,7 +197,7 @@ impl<T: ?Sized + AsRef<str>> PartialEq<T> for Text {
 //         }
 //     }
 // }
-//
+
 // impl<'a> PartialEq<&'a Path> for Text {
 //     fn eq(&self, other: &&'a Path) -> bool {
 //         match other.to_str() {
@@ -206,7 +206,7 @@ impl<T: ?Sized + AsRef<str>> PartialEq<T> for Text {
 //         }
 //     }
 // }
-//
+
 // impl PartialEq<PathBuf> for Text {
 //     fn eq(&self, other: &PathBuf) -> bool {
 //         match other.to_str() {
@@ -215,7 +215,7 @@ impl<T: ?Sized + AsRef<str>> PartialEq<T> for Text {
 //         }
 //     }
 // }
-//
+
 // impl<'a> PartialEq<PathBuf> for &'a Text {
 //     fn eq(&self, other: &PathBuf) -> bool {
 //         match other.to_str() {
