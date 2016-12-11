@@ -62,7 +62,7 @@ impl ToContent<String> for String {
     }
 }
 
-impl<'a> ToContent<&'a str> for &'a str  {
+impl<'a> ToContent<&'a str> for &'a str {
     fn to_content(self) -> Content {
         Content::String(self.into())
     }
@@ -92,25 +92,25 @@ impl<'a> ToContent<&'a Path> for &'a Path {
     }
 }
 
-impl<'a> ToContent<Cow<'a, str>> for Cow<'a, str>  {
+impl<'a> ToContent<Cow<'a, str>> for Cow<'a, str> {
     fn to_content(self) -> Content {
         Content::String(self.into())
     }
 }
 
-impl<'a> ToContent<Cow<'a, OsStr>> for Cow<'a, OsStr>  {
+impl<'a> ToContent<Cow<'a, OsStr>> for Cow<'a, OsStr> {
     fn to_content(self) -> Content {
         Content::OsString(self.into_owned())
     }
 }
 
-impl<'a> ToContent<Cow<'a, CStr>> for Cow<'a, CStr>  {
+impl<'a> ToContent<Cow<'a, CStr>> for Cow<'a, CStr> {
     fn to_content(self) -> Content {
         Content::CString(self.into_owned())
     }
 }
 
-impl<'a> ToContent<Cow<'a, Path>> for Cow<'a, Path>  {
+impl<'a> ToContent<Cow<'a, Path>> for Cow<'a, Path> {
     fn to_content(self) -> Content {
         Content::PathBuf(self.into_owned())
     }
