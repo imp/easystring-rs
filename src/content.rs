@@ -1,6 +1,7 @@
 use std::borrow::Cow;
 use std::fmt;
 use std::ffi::{CStr, CString, OsStr, OsString};
+use std::ops::{Index, Range, RangeFull};
 use std::os::unix::ffi::OsStrExt;
 use std::path::{Path, PathBuf};
 
@@ -38,6 +39,25 @@ impl Content {
             Content::CString(ref s) => OsStr::from_bytes(s.as_bytes()),
             Content::PathBuf(ref p) => p.as_os_str(),
         }
+    }
+}
+
+impl Index<RangeFull> for Content {
+    type Output = OsStr;
+    fn index(&self, index: RangeFull) -> &OsStr {
+        match *self {
+            Content::String(ref s) => s.as_ref(),
+            Content::OsString(ref s) => s.index(index),
+            Content::CString(ref s) => OsStr::from_bytes(s.as_bytes().index(index)),
+            Content::PathBuf(ref p) => p.as_os_str(),
+        }
+    }
+}
+
+impl Index<Range<usize>> for Content {
+    type Output = OsStr;
+    fn index(&self, index: Range<usize>) -> &OsStr {
+       OsStr::from_bytes(self[..].as_bytes().index(index))
     }
 }
 
