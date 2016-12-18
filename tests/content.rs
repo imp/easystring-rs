@@ -6,9 +6,15 @@ mod content {
         use easystring::Content;
 
         #[test]
-        fn slice() {
+        fn range_full() {
             let content = Content::from("abcde");
-            assert_eq!(content, "abcde");
+            assert_eq!(&content[..], "abcde");
+        }
+
+        #[test]
+        fn range() {
+            let content = Content::from("abcde");
+            assert_eq!(&content[1..3], "bc");
         }
     }
 
