@@ -1,6 +1,7 @@
 use std::borrow::Cow;
 use std::fmt;
 use std::ffi::{CStr, CString, OsStr, OsString};
+use std::os::unix::ffi::OsStrExt;
 use std::path::{Path, PathBuf};
 
 #[derive(Clone, Debug)]
@@ -20,6 +21,24 @@ impl Content {
             Content::PathBuf(ref p) => p.as_os_str().len(),
         }
     }
+
+    pub fn is_empty(&self) -> bool {
+        match *self {
+            Content::String(ref s) => s.is_empty(),
+            Content::OsString(ref s) => s.is_empty(),
+            Content::CString(ref s) => s.as_bytes().is_empty(),
+            Content::PathBuf(ref p) => p.as_os_str().is_empty(),
+        }
+    }
+
+    pub fn as_os_str(&self) -> &OsStr {
+        match *self {
+            Content::String(ref s) => s.as_ref(),
+            Content::OsString(ref s) => s,
+            Content::CString(ref s) => OsStr::from_bytes(s.as_bytes()),
+            Content::PathBuf(ref p) => p.as_os_str(),
+        }
+    }
 }
 
 impl<T> From<T> for Content
@@ -30,8 +49,6 @@ impl<T> From<T> for Content
     }
 }
 
-
-
 impl fmt::Display for Content {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         f.pad(&format!("{}", self))
@@ -40,17 +57,65 @@ impl fmt::Display for Content {
 
 impl PartialEq for Content {
     fn eq(&self, other: &Content) -> bool {
-        unimplemented!()
+        self.as_os_str() == other.as_os_str()
     }
 }
 
-impl<T> PartialEq<T> for Content
-    where String: Into<T>
-{
-    default fn eq(&self, other: &T) -> bool {
-        unimplemented!()
+macro_rules! impl_eq {
+    ($lhs:ty, $rhs: ty) => {
+        impl<'a, 'b> PartialEq<$rhs> for $lhs {
+            #[inline]
+            fn eq(&self, other: &$rhs) -> bool { PartialEq::eq(&self[..], &other[..]) }
+            #[inline]
+            fn ne(&self, other: &$rhs) -> bool { PartialEq::ne(&self[..], &other[..]) }
+        }
+
+        impl<'a, 'b> PartialEq<$lhs> for $rhs {
+            #[inline]
+            fn eq(&self, other: &$lhs) -> bool { PartialEq::eq(&self[..], &other[..]) }
+            #[inline]
+            fn ne(&self, other: &$lhs) -> bool { PartialEq::ne(&self[..], &other[..]) }
+        }
+
     }
 }
+
+impl PartialEq<String> for Content {
+    fn eq(&self, other: &String) -> bool {
+        self.as_os_str().as_bytes() == other.as_bytes()
+    }
+}
+
+impl<'a> PartialEq<&'a str> for Content {
+    fn eq(&self, other: &&'a str) -> bool {
+        self.as_os_str().as_bytes() == other.as_bytes()
+    }
+}
+
+impl<'a> PartialEq<&'a CStr> for Content {
+    fn eq(&self, other: &&'a CStr) -> bool {
+        self.as_os_str().as_bytes() == other.to_bytes()
+    }
+}
+
+// impl<T: AsRef<CStr>> PartialEq<T> for Content {
+//     fn eq(&self, other: &T) -> bool {
+//         self.as_os_str() == OsStr::from_bytes(other.as_ref().as_bytes())
+//     }
+// }
+
+impl PartialEq<CString> for Content {
+    fn eq(&self, other: &CString) -> bool {
+        self.as_os_str().as_bytes() == other.as_bytes()
+    }
+}
+
+impl<T: AsRef<OsStr>> PartialEq<T> for Content {
+    default fn eq(&self, other: &T) -> bool {
+        self.as_os_str() == other.as_ref()
+    }
+}
+
 
 pub trait ToContent<T> {
     fn to_content(self) -> Content;
