@@ -57,7 +57,7 @@ impl Index<RangeFull> for Content {
 impl Index<Range<usize>> for Content {
     type Output = OsStr;
     fn index(&self, index: Range<usize>) -> &OsStr {
-       OsStr::from_bytes(self[..].as_bytes().index(index))
+        OsStr::from_bytes(self[..].as_bytes().index(index))
     }
 }
 
