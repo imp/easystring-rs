@@ -3,9 +3,7 @@ extern crate easystring;
 #[cfg(test)]
 mod content {
     mod index {
-        use std::ffi::{CStr, CString, OsStr, OsString};
-        use std::path::{Path, PathBuf};
-        use easystring::{Content, ToContent};
+        use easystring::Content;
 
         #[test]
         fn slice() {
@@ -15,9 +13,9 @@ mod content {
     }
 
     mod compare {
-        use std::ffi::{CStr, CString, OsStr, OsString};
+        use std::ffi::{CString, OsStr, OsString};
         use std::path::{Path, PathBuf};
-        use easystring::{Content, ToContent};
+        use easystring::Content;
 
         #[test]
         fn with_str() {
