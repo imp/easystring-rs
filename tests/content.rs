@@ -25,22 +25,22 @@ mod content {
 
         #[test]
         fn with_str() {
-            let conent = Content::from("12345");
-            assert_eq!(conent, "12345");
+            let content = Content::from("12345");
+            assert_eq!(content, "12345");
         }
 
         #[test]
         fn with_string() {
-            let conent = Content::from("12345");
+            let content = Content::from("12345");
             let string = String::from("12345");
-            assert_eq!(conent, string);
+            assert_eq!(content, string);
         }
 
         #[test]
         fn with_osstr() {
-            let conent = Content::from("12345");
+            let content = Content::from("12345");
             let osstr = OsStr::new("12345");
-            assert_eq!(conent, osstr);
+            assert_eq!(content, osstr);
         }
 
         #[test]
@@ -67,16 +67,16 @@ mod content {
 
         #[test]
         fn with_path() {
-            let conent = Content::from("12345");
+            let content = Content::from("12345");
             let path = Path::new("12345");
-            assert_eq!(conent, path);
+            assert_eq!(content, path);
         }
 
         #[test]
         fn with_pathbuf() {
-            let conent = Content::from("12345");
+            let content = Content::from("12345");
             let pathbuf = PathBuf::from("12345");
-            assert_eq!(conent, pathbuf);
+            assert_eq!(content, pathbuf);
         }
     }
 }
