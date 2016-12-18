@@ -2,6 +2,7 @@ use std::convert::From;
 use std::fmt;
 use std::ops::{Add, AddAssign, Deref};
 use std::ffi::OsStr;
+use std::os::unix::ffi::OsStrExt;
 use std::path::{Path, PathBuf};
 
 use super::content::{Content, ToContent};
@@ -52,7 +53,7 @@ impl Deref for Text {
             match self.text[0] {
                 Content::String(ref s) => s.as_ref(),
                 Content::OsString(ref s) => s,
-                Content::CString(ref s) => unimplemented!(),
+                Content::CString(ref s) => OsStr::from_bytes(s.as_bytes()),
                 Content::PathBuf(ref p) => p.as_ref(),
             }
         }
