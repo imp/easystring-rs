@@ -9,7 +9,6 @@ use super::content::{Content, ToContent};
 
 #[derive(Debug, Default)]
 pub struct Text {
-    inner: Option<String>,
     text: Vec<Content>,
 }
 
@@ -17,10 +16,7 @@ impl<T> From<T> for Text
     where T: ToContent<T>
 {
     fn from(s: T) -> Self {
-        Text {
-            inner: None,
-            text: vec![Content::from(s)],
-        }
+        Text { text: vec![Content::from(s)] }
     }
 }
 
